@@ -20,6 +20,8 @@ This package exports the following plugin and companion types and variables:
 | `CopyKaTeXAssetsPluginOptions` | Configuration options for the plugin |
 | `defaultKaTeXStyleSheet` | Default KaTeX style sheet entry for `config.stylesheets` array |
 | `getKaTeXStyleSheet` | Ditto, but with custom base URL |
+| `defaultKaTeXCssPath` | Default KaTeX CSS path |
+| `getKaTeXCssPath` | Ditto, but with custom base URL |
 
 Then add the plugin to `docusaurus.config.js`:
 
