@@ -1,9 +1,9 @@
 import type * as Preset from "@docusaurus/preset-classic";
 import type { Config } from "@docusaurus/types";
 import {
-  type CopyKatexAssetsPluginOptions,
-  copyKatexAssetsPlugin,
-  katexStyleSheet,
+  type CopyKaTeXAssetsPluginOptions,
+  copyKaTeXAssetsPlugin,
+  getKaTeXStyleSheet,
 } from "@tats-u/docusaurus-plugin-copy-katex-assets";
 import { themes as prismThemes } from "prism-react-renderer";
 import rehypeKatex from "rehype-katex";
@@ -17,6 +17,8 @@ const rehypePlugins = [rehypeKatex];
 const isSlower = ((value: string | undefined) =>
   value && /^(t(rue)?|y(es)?|1)$/i.test(value))(process.env.IS_SLOWER);
 
+const baseUrl = "/docusaurus-plugin-copy-katex-assets/";
+
 const config: Config = {
   title: "Math Expressions Test",
   tagline: "Dinosaurs are cool",
@@ -26,7 +28,7 @@ const config: Config = {
   url: "https://tats-u.github.com",
   // Set the /<baseUrl>/ pathname under which your site is served
   // For GitHub pages deployment, it is often '/<projectName>/'
-  baseUrl: "/docusaurus-plugin-copy-katex-assets/",
+  baseUrl,
 
   // GitHub pages deployment config.
   // If you aren't using GitHub pages, you don't need these.
@@ -64,12 +66,12 @@ const config: Config = {
       } satisfies Preset.Options,
     ],
   ],
-  stylesheets: [katexStyleSheet],
+  stylesheets: [getKaTeXStyleSheet(baseUrl)],
 
   plugins: [
     [
-      copyKatexAssetsPlugin,
-      { useRspack: !isSlower } satisfies CopyKatexAssetsPluginOptions,
+      copyKaTeXAssetsPlugin,
+      { useRspack: !isSlower } satisfies CopyKaTeXAssetsPluginOptions,
     ],
   ],
 

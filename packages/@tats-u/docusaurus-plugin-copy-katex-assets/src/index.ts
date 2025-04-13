@@ -7,19 +7,29 @@ import { version as katexVersion } from "katex";
  *
  * You can pass this to `href` of `config.stylesheets` array or `<link>` tag.
  */
-export const katexCssPath = `/assets/katex-${katexVersion}/katex.min.css`;
+export const defaultKaTeXCssPath = `/assets/katex-${katexVersion}/katex.min.css`;
+
+/**
+ * Similar to {@linkcode defaultKaTeXCssPath}, but with custom base URL
+ *
+ * @param baseUrl The base URL of your website. Same as that of `baseUrl` in `docusaurus.config.js`
+ * @returns KaTeX CSS path
+ */
+export function getKaTeXCssPath(baseUrl: string): string {
+  return posix.join(baseUrl, defaultKaTeXCssPath);
+}
 
 /**
  * Default KaTeX style sheet entry for `config.stylesheets` array.
  *
  * You can pass this to `config.stylesheets` array.
  */
-export const katexStyleSheet = {
-  href: katexCssPath,
+export const defaultKaTeXStyleSheet = {
+  href: defaultKaTeXCssPath,
   type: "text/css",
 } as const;
 
-export interface CopyKatexAssetsPluginOptions {
+export interface CopyKaTeXAssetsPluginOptions {
   /**
    * Pass `true` if you are using Docusaurus Faster
    */
@@ -27,13 +37,40 @@ export interface CopyKatexAssetsPluginOptions {
   /**
    * Assets root path
    *
-   * If you change this, {@linkcode katexCssPath} and {@linkcode katexStyleSheet} will be _useless_.
+   * If you change this, {@linkcode defaultKaTeXCssPath} and {@linkcode defaultKaTeXStyleSheet} will be _useless_.
    *
    * The value shall not be started with `/`.
    *
    * @default `assets/katex-${katexVersion}`
    */
   assetsRoot?: string;
+  /**
+   * Base URL
+   *
+   * Pass this if you deploy Docusaurus to a subpath (e.g. GitHub Pages for repositories)
+   *
+   * Won't be used if `assetsRoot` is passed
+   */
+  baseUrl?: string;
+}
+
+
+/**
+ * Return a KaTeX style sheet entry for `config.stylesheets` array.
+ *
+ * The returned object is same as {@linkcode defaultKaTeXStyleSheet} but `href` is prefixed with given `baseUrl`.
+ *
+ * @param baseUrl The base URL of your website. Same as that of `baseUrl` in `docusaurus.config.js`
+ * @returns A KaTeX style sheet entry for `config.stylesheets` array
+ */
+export function getKaTeXStyleSheet(
+  baseUrl: string,
+): typeof defaultKaTeXStyleSheet {
+  return {
+    type: "text/css",
+    // Slash won't be duplicated
+    href: getKaTeXCssPath(baseUrl),
+  };
 }
 
 type WebpackPluginOptions = ConstructorParameters<
@@ -41,18 +78,21 @@ type WebpackPluginOptions = ConstructorParameters<
 >[0] &
   ConstructorParameters<typeof import("@rspack/core")["CopyRspackPlugin"]>[0];
 
-export const copyKatexAssetsPlugin: PluginModule = (_context, options) => {
+/**
+ * Docusaurus plugin to copy KaTeX assets
+ */
+export const copyKaTeXAssetsPlugin: PluginModule = (_context, options) => {
   const assetsRoot =
-    (options as CopyKatexAssetsPluginOptions)?.assetsRoot ??
+    (options as CopyKaTeXAssetsPluginOptions)?.assetsRoot?.replace(/^\//, "") ??
     // Don't start with `/` here
-    `assets/katex-${katexVersion}`;
-  const CopyWebpackPlugin = (options as CopyKatexAssetsPluginOptions)?.useRspack
+    `${(options as CopyKaTeXAssetsPluginOptions)?.baseUrl?.replace(/^\//, "") ?? ""}assets/katex-${katexVersion}`;
+  const CopyWebpackPlugin = (options as CopyKaTeXAssetsPluginOptions)?.useRspack
     ? require("@rspack/core").CopyRspackPlugin
     : require("copy-webpack-plugin");
   const katexCssPath = require.resolve("katex/dist/katex.min.css");
   return {
     name: "copy-katex-assets",
-    configureWebpack: () => {
+    configureWebpack: (config) => {
       return {
         plugins: [
           new CopyWebpackPlugin({
@@ -79,4 +119,4 @@ export const copyKatexAssetsPlugin: PluginModule = (_context, options) => {
   };
 };
 
-export default copyKatexAssetsPlugin;
+export default copyKaTeXAssetsPlugin;

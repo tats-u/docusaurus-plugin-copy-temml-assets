@@ -14,24 +14,25 @@ This package exports the following plugin and companion types and variables:
 
 | Name | Description |
 | --- | --- |
-| `copyKatexAssetsPlugin` | Docusaurus plugin to copy KaTeX assets |
-| `CopyKatexAssetsPluginOptions` | Configuration options for the plugin |
-| `katexStyleSheet` | Default KaTeX style sheet entry for `config.stylesheets` array |
+| `copyKaTeXAssetsPlugin` | Docusaurus plugin to copy KaTeX assets |
+| `CopyKaTeXAssetsPluginOptions` | Configuration options for the plugin |
+| `defaultKaTeXStyleSheet` | Default KaTeX style sheet entry for `config.stylesheets` array |
+| `getKaTeXStyleSheet` | Ditto, but with custom base URL |
 
 Then add the plugin to `docusaurus.config.js`:
 
 ```js
-import { copyKatexAssetsPlugin, katexStyleSheet } from '@tats-u/docusaurus-plugin-copy-katex-assets';
+import { copyKatexAssetsPlugin, defaultKaTeXStyleSheet } from '@tats-u/docusaurus-plugin-copy-katex-assets';
 
 /**
- * @import { CopyKatexAssetsPluginOptions } from '@tats-u/docusaurus-plugin-copy-katex-assets';
+ * @import { CopyKaTeXAssetsPluginOptions } from '@tats-u/docusaurus-plugin-copy-katex-assets';
  */
 
 const config = {
   // ...
   stylesheets: [
     // ...
-    katexStyleSheet,
+    defaultKaTeXStyleSheet,
   ],
   plugins: [
     // ...
@@ -51,7 +52,7 @@ const config = {
     // ...
     [
       copyKatexAssetsPlugin,
-      /** @satisfies {CopyKatexAssetsPluginOptions} */({ useRspack: true }),
+      /** @satisfies {CopyKaTeXAssetsPluginOptions} */({ useRspack: true }),
     ],
   ],
 }
@@ -67,7 +68,30 @@ const config = {
     [
       copyKatexAssetsPlugin,
       // Important: Path shall not start with `/`.
-      /** @satisfies {CopyKatexAssetsPluginOptions} */({ assetsRoot: 'assets/katex' }),
+      /** @satisfies {CopyKaTeXAssetsPluginOptions} */({ assetsRoot: 'assets/katex' }),
+    ],
+  ],
+}
+```
+
+If you want to use a custom base URL, pass `baseUrl` to the plugin, and use `getKaTeXStyleSheet` instead of `defaultKaTeXStyleSheet`:
+
+```js
+const baseUrl = '/your-repo-name/';
+
+const config = {
+  // ...
+  baseUrl,
+  // ...
+  stylesheets: [
+    // ...
+    getKaTeXStyleSheet(baseUrl),
+  ],
+  plugins: [
+    // ...
+    [
+      copyKatexAssetsPlugin,
+      /** @satisfies {CopyKaTeXAssetsPluginOptions} */({ baseUrl }),
     ],
   ],
 }
