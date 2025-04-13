@@ -44,7 +44,8 @@ type WebpackPluginOptions = ConstructorParameters<
 export const copyKatexAssetsPlugin: PluginModule = (_context, options) => {
   const assetsRoot =
     (options as CopyKatexAssetsPluginOptions)?.assetsRoot ??
-    `/assets/katex-${katexVersion}`;
+    // Don't start with `/` here
+    `assets/katex-${katexVersion}`;
   const CopyWebpackPlugin = (options as CopyKatexAssetsPluginOptions)?.useRspack
     ? require("@rspack/core").CopyRspackPlugin
     : require("copy-webpack-plugin");
