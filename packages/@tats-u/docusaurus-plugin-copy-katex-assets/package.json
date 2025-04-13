@@ -1,0 +1,48 @@
+{
+  "name": "@tats-u/docusaurus-plugin-copy-katex-assets",
+  "type": "module",
+  "version": "1.0.0",
+  "description": "Docusaurus plugin to copy KaTeX assets",
+  "module": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "files": ["dist", "LICENSE", "README.md"],
+  "exports": {
+    "types": "./dist/index.d.ts",
+    "default": "./dist/index.js"
+  },
+  "scripts": {
+    "build": "tsup",
+    "dev": "tsup --watch",
+    "typecheck": "tsc --noEmit"
+  },
+  "keywords": ["docusaurus", "katex", "math"],
+  "author": "Tatsunori Uchino <tats.u@live.jp>",
+  "bugs": {
+    "url": "https://github.com/tats-u/docusaurus-plugin-copy-katex-assets/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/tats-u/docusaurus-plugin-copy-katex-assets.git"
+  },
+  "homepage": "https://github.com/tats-u/docusaurus-plugin-copy-katex-assets",
+  "license": "MIT",
+  "packageManager": "pnpm@10.6.4",
+  "devDependencies": {
+    "tsup": "^8.4.0",
+    "typescript": "~5.8.3"
+  },
+  "peerDependencies": {
+    "@docusaurus/types": "^3.7.0",
+    "@rspack/core": "~1.2.0-alpha.0",
+    "copy-webpack-plugin": "^13.0.0",
+    "katex": "*"
+  },
+  "peerDependenciesMeta": {
+    "@rspack/core": {
+      "optional": true
+    },
+    "copy-webpack-plugin": {
+      "optional": true
+    }
+  }
+}

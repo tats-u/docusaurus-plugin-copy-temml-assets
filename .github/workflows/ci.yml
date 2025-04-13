@@ -1,0 +1,80 @@
+name: Regular CI
+on: [push, pull_request]
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22.x'
+          registry-url: 'https://registry.npmjs.org'
+      - uses: pnpm/action-setup@v4
+        with:
+          run_install: true
+      - name: Lint
+        run: node --run check
+      - name: Build (package)
+        run: pnpm -r build
+      - name: Type check
+        run: |
+          pnpm -r typecheck
+          node --run typecheck
+      - name: Build (Test site)
+        run: node --run build
+      - name: Upload static files as artifact
+        id: deployment
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: build
+        if: github.ref == 'refs/heads/main' && github.event_name == 'push'
+  build_slower:
+    runs-on: ubuntu-latest
+    needs: build
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22.x'
+          registry-url: 'https://registry.npmjs.org'
+      - uses: pnpm/action-setup@v4
+        with:
+          run_install: true
+      - name: Build (package)
+        run: pnpm -r build
+      - name: Build (Test site)
+        run: node --run build:slower
+  build_windows:
+    runs-on: windows-latest
+    needs: build
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22.x'
+          registry-url: 'https://registry.npmjs.org'
+      - uses: pnpm/action-setup@v4
+        with:
+          run_install: true
+      - name: Build (package)
+        run: pnpm -r build
+      - name: Build (Test site)
+        run: node --run build
+  deploy:
+    needs:
+      - build
+      - build_windows
+    runs-on: ubuntu-latest
+    if: github.ref == 'refs/heads/main' && github.event_name == 'push'
+    permissions:
+      pages: write
+      id-token: write
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
