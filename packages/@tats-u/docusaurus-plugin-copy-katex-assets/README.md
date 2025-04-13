@@ -2,6 +2,8 @@
 
 This plugin copies KaTeX assets to the build directory. This makes it unnecessary to [load KaTeX assets from the CDN](https://docusaurus.io/docs/markdown-features/math-equations).
 
+Demo: https://tats-u.github.io/docusaurus-plugin-copy-katex-assets
+
 ## How to Use
 
 Install the plugin:
