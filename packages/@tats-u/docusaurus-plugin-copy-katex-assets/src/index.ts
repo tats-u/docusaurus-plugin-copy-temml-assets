@@ -54,7 +54,6 @@ export interface CopyKaTeXAssetsPluginOptions {
   baseUrl?: string;
 }
 
-
 /**
  * Return a KaTeX style sheet entry for `config.stylesheets` array.
  *
