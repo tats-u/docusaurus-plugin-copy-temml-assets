@@ -1,5 +1,7 @@
 # docusaurus-plugin-copy-katex-assets plugin
 
+[![Version](https://img.shields.io/npm/v/@tats-u/docusaurus-plugin-copy-katex-assets)](https://npmjs.com/package/@tats-u/docusaurus-plugin-copy-katex-assets) [![NPM Downloads](https://img.shields.io/npm/dm/@tats-u/docusaurus-plugin-copy-katex-assets)](https://npmjs.com/package/@tats-u/docusaurus-plugin-copy-katex-assets) [![NPM Last Update](https://img.shields.io/npm/last-update/@tats-u/docusaurus-plugin-copy-katex-assets)](https://npmjs.com/package/@tats-u/docusaurus-plugin-copy-katex-assets)
+
 This plugin copies KaTeX assets to the build directory. This makes it unnecessary to [load KaTeX assets from the CDN](https://docusaurus.io/docs/markdown-features/math-equations).
 
 Demo: https://tats-u.github.io/docusaurus-plugin-copy-katex-assets
