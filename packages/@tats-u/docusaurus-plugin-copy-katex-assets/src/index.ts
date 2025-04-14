@@ -1,5 +1,5 @@
 import { posix, sep } from "node:path";
-import type { PluginModule } from "@docusaurus/types";
+import type { CurrentBundler, PluginModule } from "@docusaurus/types";
 import { version as katexVersion } from "katex";
 
 /**
@@ -91,8 +91,11 @@ export const copyKaTeXAssetsPlugin: PluginModule = (_context, options) => {
   return {
     name: "copy-katex-assets",
     configureWebpack: (_config, _isServer, { currentBundler }) => {
+      // currentBundler didn't exist before Docusaurus v3.6
+      // https://app.unpkg.com/@docusaurus/types@3.5.0/files/src/plugin.d.ts#L56-65
+      // https://app.unpkg.com/@docusaurus/types@3.5.0/files/src/plugin.d.ts#L130
       const CopyPlugin =
-        currentBundler.name === "rspack"
+        (currentBundler as (typeof currentBundler) | undefined)?.name === "rspack"
           ? (
             // getCopyPlugin (We can't use it here because Promise is disallowed): https://github.com/facebook/docusaurus/blob/main/packages/docusaurus-bundler/src/currentBundler.ts
             // FasterModule: https://github.com/facebook/docusaurus/blob/main/packages/docusaurus-bundler/src/importFaster.ts#L15
