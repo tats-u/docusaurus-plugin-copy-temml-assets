@@ -68,12 +68,7 @@ const config: Config = {
   ],
   stylesheets: [getKaTeXStyleSheet(baseUrl)],
 
-  plugins: [
-    [
-      copyKaTeXAssetsPlugin,
-      { useRspack: !isSlower } satisfies CopyKaTeXAssetsPluginOptions,
-    ],
-  ],
+  plugins: [copyKaTeXAssetsPlugin],
 
   themeConfig: {
     // Replace with your project's social card

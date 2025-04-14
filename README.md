@@ -45,22 +45,18 @@ const config = {
 }
 ```
 
+> [!NOTE]
+> For TypeScript, use the following instead:
+>
+> ```ts
+> import { type CopyKaTeXAssetsPluginOptions, copyKatexAssetsPlugin, defaultKaTeXStyleSheet } from '@tats-u/docusaurus-plugin-copy-katex-assets';
+> ```
+
+### Compatibility with Docusaurus Faster
+
+This plugin is compatible with [Docusaurus Faster](https://github.com/facebook/docusaurus/issues/10556).
+
 ### Configuration
-
-If you are using [Docusaurus Faster](https://github.com/facebook/docusaurus/issues/10556), pass `useRspack: true` to the plugin:
-
-```js
-const config = {
-  // ...
-  plugins: [
-    // ...
-    [
-      copyKatexAssetsPlugin,
-      /** @satisfies {CopyKaTeXAssetsPluginOptions} */({ useRspack: true }),
-    ],
-  ],
-}
-```
 
 The default deployed path is `/assets/katex-{KaTeX version}/katex.min.css`. If you want to change the path, pass `assetsRoot` to the plugin:
 
@@ -77,6 +73,10 @@ const config = {
   ],
 }
 ```
+
+> [!NOTE]
+> For TypeScript, use `{ ... } satisfies CopyKaTeXAssetsPluginOptions` instead.
+
 
 If you want to use a custom base URL, pass `baseUrl` to the plugin, and use `getKaTeXStyleSheet` instead of `defaultKaTeXStyleSheet`:
 

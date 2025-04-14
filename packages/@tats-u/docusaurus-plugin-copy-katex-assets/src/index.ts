@@ -31,7 +31,7 @@ export const defaultKaTeXStyleSheet = {
 
 export interface CopyKaTeXAssetsPluginOptions {
   /**
-   * Pass `true` if you are using Docusaurus Faster
+   * @deprecated No effect. Whether [Docusaurus Faster](https://github.com/facebook/docusaurus/issues/10556) is used is automatically detected now.
    */
   useRspack?: boolean;
   /**
@@ -75,7 +75,9 @@ export function getKaTeXStyleSheet(
 type WebpackPluginOptions = ConstructorParameters<
   typeof import("copy-webpack-plugin")
 >[0] &
-  ConstructorParameters<typeof import("@rspack/core")["CopyRspackPlugin"]>[0];
+  ConstructorParameters<
+    typeof import("@docusaurus/faster")["rspack"]["CopyRspackPlugin"]
+  >[0];
 
 /**
  * Docusaurus plugin to copy KaTeX assets
@@ -85,16 +87,25 @@ export const copyKaTeXAssetsPlugin: PluginModule = (_context, options) => {
     (options as CopyKaTeXAssetsPluginOptions)?.assetsRoot?.replace(/^\//, "") ??
     // Don't start with `/` here
     `${(options as CopyKaTeXAssetsPluginOptions)?.baseUrl?.replace(/^\//, "") ?? ""}assets/katex-${katexVersion}`;
-  const CopyWebpackPlugin = (options as CopyKaTeXAssetsPluginOptions)?.useRspack
-    ? require("@rspack/core").CopyRspackPlugin
-    : require("copy-webpack-plugin");
   const katexCssPath = require.resolve("katex/dist/katex.min.css");
   return {
     name: "copy-katex-assets",
-    configureWebpack: (config) => {
+    configureWebpack: (_config, _isServer, { currentBundler }) => {
+      const CopyPlugin =
+        currentBundler.name === "rspack"
+          ? (
+            // getCopyPlugin (We can't use it here because Promise is disallowed): https://github.com/facebook/docusaurus/blob/main/packages/docusaurus-bundler/src/currentBundler.ts
+            // FasterModule: https://github.com/facebook/docusaurus/blob/main/packages/docusaurus-bundler/src/importFaster.ts#L15
+            // rspack Type: https://github.com/facebook/docusaurus/blob/main/packages/docusaurus-faster/src/index.ts
+            // biome-ignore format: trailing comma for import not allowed
+              currentBundler.instance as unknown as typeof import(
+                "@docusaurus/faster"
+              )["rspack"]
+            ).CopyRspackPlugin
+          : require("copy-webpack-plugin");
       return {
         plugins: [
-          new CopyWebpackPlugin({
+          new CopyPlugin({
             patterns: [
               {
                 from: katexCssPath,
