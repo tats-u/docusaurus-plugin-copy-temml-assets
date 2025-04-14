@@ -1,7 +1,7 @@
 {
   "name": "@tats-u/docusaurus-plugin-copy-katex-assets",
   "type": "module",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Docusaurus plugin to copy KaTeX assets",
   "module": "dist/index.js",
   "types": "dist/index.d.ts",
