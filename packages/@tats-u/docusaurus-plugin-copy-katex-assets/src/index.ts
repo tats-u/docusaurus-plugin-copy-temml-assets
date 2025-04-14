@@ -95,7 +95,7 @@ export const copyKaTeXAssetsPlugin: PluginModule = (_context, options) => {
       // https://app.unpkg.com/@docusaurus/types@3.5.0/files/src/plugin.d.ts#L56-65
       // https://app.unpkg.com/@docusaurus/types@3.5.0/files/src/plugin.d.ts#L130
       const CopyPlugin =
-        (currentBundler as (typeof currentBundler) | undefined)?.name === "rspack"
+        (currentBundler as typeof currentBundler | undefined)?.name === "rspack"
           ? (
             // getCopyPlugin (We can't use it here because Promise is disallowed): https://github.com/facebook/docusaurus/blob/main/packages/docusaurus-bundler/src/currentBundler.ts
             // FasterModule: https://github.com/facebook/docusaurus/blob/main/packages/docusaurus-bundler/src/importFaster.ts#L15
