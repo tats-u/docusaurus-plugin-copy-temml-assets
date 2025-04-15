@@ -27,6 +27,8 @@ jobs:
           node --run typecheck
       - name: Build (Test site)
         run: node --run build
+      - name: CHeck KaTeX assets existence
+        run: ls build/assets/katex-*/katex.min.css && ls build/assets/katex-*/fonts/*.woff2
       - name: Upload static files as artifact
         id: deployment
         uses: actions/upload-pages-artifact@v3
@@ -52,6 +54,8 @@ jobs:
         run: pnpm -r build
       - name: Build (Test site)
         run: node --run build:slower
+      - name: CHeck KaTeX assets existence
+        run: ls build/assets/katex-*/katex.min.css && ls build/assets/katex-*/fonts/*.woff2
   build_windows:
     runs-on: windows-latest
     needs: build
@@ -68,6 +72,8 @@ jobs:
         run: pnpm -r build
       - name: Build (Test site)
         run: node --run build
+      - name: CHeck KaTeX assets existence
+        run: ls build/assets/katex-*/katex.min.css && ls build/assets/katex-*/fonts/*.woff2
   deploy:
     needs:
       - build
