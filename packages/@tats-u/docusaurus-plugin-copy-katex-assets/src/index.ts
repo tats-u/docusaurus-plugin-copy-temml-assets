@@ -79,6 +79,8 @@ type WebpackPluginOptions = ConstructorParameters<
     typeof import("@docusaurus/faster")["rspack"]["CopyRspackPlugin"]
   >[0];
 
+const isPosix = sep === posix.sep;
+
 /**
  * Docusaurus plugin to copy KaTeX assets
  */
@@ -117,7 +119,11 @@ export const copyKaTeXAssetsPlugin: PluginModule = (_context, options) => {
               {
                 // glob doesn't support Windows-style paths
                 from: posix.join(
-                  posix.dirname(katexCssPath.replaceAll(sep, posix.sep)),
+                  posix.dirname(
+                    isPosix
+                      ? katexCssPath // Fast path for POSIX
+                      : katexCssPath.replaceAll(sep, posix.sep),
+                  ),
                   "fonts",
                   "*.woff2",
                 ),
