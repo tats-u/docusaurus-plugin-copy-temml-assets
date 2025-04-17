@@ -103,6 +103,10 @@ const config = {
 }
 ```
 
+## Acknowledgement
+
+This plugin is derived from [docusaurus-copy-plugin](https://github.com/rlamana/docusaurus-plugin-copy). Thanks to [Ramón Lamana (@rlamana)](https://github.com/rlamana) for the original work.
+
 ## Demo Website
 
 This website is built using [Docusaurus](https://docusaurus.io/), a modern static website generator.
