@@ -84,11 +84,14 @@ const isPosix = sep === posix.sep;
 /**
  * Docusaurus plugin to copy KaTeX assets
  */
-export const copyKaTeXAssetsPlugin: PluginModule = (_context, options) => {
+export function copyKaTeXAssetsPlugin(
+  _context: Parameters<PluginModule>[0],
+  options: CopyKaTeXAssetsPluginOptions,
+): ReturnType<PluginModule> {
   const assetsRoot =
-    (options as CopyKaTeXAssetsPluginOptions)?.assetsRoot?.replace(/^\//, "") ??
+    options?.assetsRoot?.replace(/^\//, "") ??
     // Don't start with `/` here
-    `${(options as CopyKaTeXAssetsPluginOptions)?.baseUrl?.replace(/^\//, "") ?? ""}assets/katex-${katexVersion}`;
+    `${options?.baseUrl?.replace(/^\//, "") ?? ""}assets/katex-${katexVersion}`;
   const katexCssPath = require.resolve("katex/dist/katex.min.css");
   return {
     name: "copy-katex-assets",
@@ -136,6 +139,6 @@ export const copyKaTeXAssetsPlugin: PluginModule = (_context, options) => {
     },
     getPathsToWatch: () => [require.resolve("katex/package.json")],
   };
-};
+}
 
 export default copyKaTeXAssetsPlugin;
