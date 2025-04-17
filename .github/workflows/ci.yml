@@ -27,7 +27,7 @@ jobs:
           node --run typecheck
       - name: Build (Test site)
         run: node --run build
-      - name: CHeck KaTeX assets existence
+      - name: Check KaTeX assets existence
         run: ls build/assets/katex-*/katex.min.css && ls build/assets/katex-*/fonts/*.woff2
       - name: Upload static files as artifact
         id: deployment
