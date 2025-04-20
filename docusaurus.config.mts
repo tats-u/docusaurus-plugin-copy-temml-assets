@@ -1,23 +1,28 @@
+import rehypeMathMl from "@daiji256/rehype-mathml";
 import type * as Preset from "@docusaurus/preset-classic";
 import type { Config } from "@docusaurus/types";
 import {
-  type CopyKaTeXAssetsPluginOptions,
-  copyKaTeXAssetsPlugin,
-  getKaTeXStyleSheet,
-} from "@tats-u/docusaurus-plugin-copy-katex-assets";
+  type CopyTemmlAssetsPluginOptions,
+  copyTemmlAssetsPlugin,
+  getTemmlStyleSheet,
+} from "@tats-u/docusaurus-plugin-copy-temml-assets";
 import { themes as prismThemes } from "prism-react-renderer";
-import rehypeKatex from "rehype-katex";
 import remarkMath from "remark-math";
 
 const remarkPlugins = [remarkMath];
-const rehypePlugins = [rehypeKatex];
+const rehypePlugins = [rehypeMathMl];
 
 // This runs in Node.js - Don't use client-side code here (browser APIs, JSX...)
 
 const isSlower = ((value: string | undefined) =>
   value && /^(t(rue)?|y(es)?|1)$/i.test(value))(process.env.IS_SLOWER);
 
-const baseUrl = "/docusaurus-plugin-copy-katex-assets/";
+const baseUrl = "/docusaurus-plugin-copy-temml-assets/";
+
+const temmlPluginOptions = {
+  baseUrl,
+  fontPath: require.resolve("./src/NotoSansMath-Regular.ttf"),
+} satisfies CopyTemmlAssetsPluginOptions;
 
 const config: Config = {
   title: "Math Expressions Test",
@@ -33,7 +38,7 @@ const config: Config = {
   // GitHub pages deployment config.
   // If you aren't using GitHub pages, you don't need these.
   organizationName: "tats-u", // Usually your GitHub org/user name.
-  projectName: "docusaurus-plugin-copy-katex-assets", // Usually your repo name.
+  projectName: "docusaurus-plugin-copy-temml-assets", // Usually your repo name.
 
   onBrokenLinks: "throw",
   onBrokenMarkdownLinks: "warn",
@@ -66,9 +71,9 @@ const config: Config = {
       } satisfies Preset.Options,
     ],
   ],
-  stylesheets: [getKaTeXStyleSheet(baseUrl)],
+  stylesheets: [getTemmlStyleSheet(temmlPluginOptions)],
 
-  plugins: [copyKaTeXAssetsPlugin],
+  plugins: [[copyTemmlAssetsPlugin, temmlPluginOptions]],
 
   themeConfig: {
     // Replace with your project's social card

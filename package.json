@@ -16,17 +16,17 @@
     "fix": "biome check --fix"
   },
   "dependencies": {
+    "@daiji256/rehype-mathml": "^1.2.0",
     "@docusaurus/core": "3.7.0",
     "@docusaurus/faster": "^3.7.0",
     "@docusaurus/preset-classic": "3.7.0",
     "@mdx-js/react": "^3.1.0",
-    "@tats-u/docusaurus-plugin-copy-katex-assets": "workspace:*",
+    "@tats-u/docusaurus-plugin-copy-temml-assets": "workspace:*",
     "clsx": "^2.1.1",
     "katex": "^0.16.22",
     "prism-react-renderer": "^2.4.1",
     "react": "^19.1.0",
     "react-dom": "^19.1.0",
-    "rehype-katex": "^7.0.1",
     "remark-math": "^6.0.0"
   },
   "devDependencies": {

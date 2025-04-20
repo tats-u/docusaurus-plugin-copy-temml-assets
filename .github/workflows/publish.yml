@@ -20,8 +20,8 @@ jobs:
           run_install: true
       - name: Build packages
         run: node --run build
-        working-directory: packages/@tats-u/docusaurus-plugin-copy-katex-assets
+        working-directory: packages/@tats-u/docusaurus-plugin-copy-temml-assets
       - run: pnpm publish --provenance --access public --no-git-checks
-        working-directory: packages/@tats-u/docusaurus-plugin-copy-katex-assets
+        working-directory: packages/@tats-u/docusaurus-plugin-copy-temml-assets
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}

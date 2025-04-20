@@ -1,4 +1,4 @@
 publicHoistPattern:
   - "@rspack/core"
 packages:
-  - "packages/@tats-u/docusaurus-plugin-copy-katex-assets"
+  - "packages/@tats-u/docusaurus-plugin-copy-temml-assets"
