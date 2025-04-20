@@ -4,7 +4,7 @@
 
 This plugin copies [Temml](https://temml.org) assets to the build directory.
 
-Demo: https://tats-u.github.io/docusaurus-plugin-copy-temml-assets
+Demo: https://tats-u.github.io/docusaurus-plugin-copy-temml-assets (uses [Noto Sans Math](https://fonts.google.com/noto/specimen/Noto+Sans+Math))
 
 ## Why Temml instead of KaTeX?
 
