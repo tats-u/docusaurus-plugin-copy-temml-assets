@@ -228,6 +228,7 @@ export function copyTemmlAssetsPlugin(
     },
     getPathsToWatch: () => [
       require.resolve("temml/package.json"),
+      temmlCssPath,
       ...(options.fontPath !== undefined ? [options.fontPath] : []),
     ],
   };
