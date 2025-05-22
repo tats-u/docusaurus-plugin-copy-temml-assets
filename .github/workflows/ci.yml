@@ -60,6 +60,8 @@ jobs:
         run: ls build/assets/temml-*/Temml-NotoSans.css && ls build/assets/temml-*/NotoSansMath-Regular.ttf
   build_windows:
     runs-on: windows-latest
+    permissions:
+      contents: read
     needs: build
     steps:
       - uses: actions/checkout@v4
