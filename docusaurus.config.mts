@@ -4,6 +4,7 @@ import type { Config } from "@docusaurus/types";
 import {
   type CopyTemmlAssetsPluginOptions,
   copyTemmlAssetsPlugin,
+  getPlacedPath,
   getTemmlStyleSheet,
 } from "@tats-u/docusaurus-plugin-copy-temml-assets";
 import { themes as prismThemes } from "prism-react-renderer";
@@ -21,7 +22,9 @@ const baseUrl = "/docusaurus-plugin-copy-temml-assets/";
 
 const temmlPluginOptions = {
   baseUrl,
-  fontPath: require.resolve("./src/NotoSansMath-Regular.ttf"),
+  fontPath: require.resolve("./src/NotoSansMath-Regular.woff2"),
+  fontPreset: "Local",
+  additionalCssPath: require.resolve("./src/css/noto-sans.css"),
 } satisfies CopyTemmlAssetsPluginOptions;
 
 const config: Config = {
@@ -44,6 +47,10 @@ const config: Config = {
   onBrokenMarkdownLinks: "warn",
 
   future: {
+    v4: {
+      removeLegacyPostBuildHeadAttribute: true,
+      useCssCascadeLayers: true,
+    },
     experimental_faster: !isSlower,
   },
 
@@ -71,7 +78,10 @@ const config: Config = {
       } satisfies Preset.Options,
     ],
   ],
-  stylesheets: [getTemmlStyleSheet(temmlPluginOptions)],
+  stylesheets: [
+    getPlacedPath("noto-sans.css", temmlPluginOptions),
+    getTemmlStyleSheet(temmlPluginOptions),
+  ],
 
   plugins: [[copyTemmlAssetsPlugin, temmlPluginOptions]],
 
