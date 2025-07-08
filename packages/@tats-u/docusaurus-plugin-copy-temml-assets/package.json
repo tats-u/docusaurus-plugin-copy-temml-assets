@@ -28,17 +28,21 @@
   "license": "MIT",
   "packageManager": "pnpm@10.6.4",
   "devDependencies": {
-    "@docusaurus/faster": "^3.7.0",
+    "@docusaurus/types": "3.8.1",
     "tsup": "^8.4.0",
     "typescript": "~5.8.3"
   },
   "peerDependencies": {
+    "@docusaurus/faster": "*",
     "@docusaurus/types": "*",
     "copy-webpack-plugin": "*",
     "temml": "*"
   },
   "peerDependenciesMeta": {
     "copy-webpack-plugin": {
+      "optional": true
+    },
+    "@docusaurus/faster": {
       "optional": true
     }
   }
