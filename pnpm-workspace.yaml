@@ -2,3 +2,5 @@ publicHoistPattern:
   - "@rspack/core"
 packages:
   - "packages/@tats-u/docusaurus-plugin-copy-temml-assets"
+overrides:
+  compression@1.8.0>on-headers: 1.1.0
