@@ -28,10 +28,10 @@
   "license": "MIT",
   "packageManager": "pnpm@10.6.4",
   "devDependencies": {
-    "@docusaurus/faster": "3.8.1",
-    "@docusaurus/types": "3.8.1",
-    "tsup": "^8.4.0",
-    "typescript": "~5.8.3"
+    "@docusaurus/faster": "3.9.2",
+    "@docusaurus/types": "3.9.2",
+    "tsup": "^8.5.1",
+    "typescript": "~5.9.3"
   },
   "peerDependencies": {
     "@docusaurus/types": "*",

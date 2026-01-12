@@ -17,9 +17,9 @@
   },
   "dependencies": {
     "@daiji256/rehype-mathml": "^1.2.2",
-    "@docusaurus/core": "3.8.1",
-    "@docusaurus/faster": "3.8.1",
-    "@docusaurus/preset-classic": "3.8.1",
+    "@docusaurus/core": "3.9.2",
+    "@docusaurus/faster": "3.9.2",
+    "@docusaurus/preset-classic": "3.9.2",
     "@mdx-js/react": "^3.1.1",
     "@tats-u/docusaurus-plugin-copy-temml-assets": "workspace:*",
     "clsx": "^2.1.1",
@@ -31,19 +31,15 @@
   },
   "devDependencies": {
     "@biomejs/biome": "^1.9.4",
-    "@docusaurus/module-type-aliases": "3.8.1",
-    "@docusaurus/tsconfig": "3.8.1",
-    "@docusaurus/types": "3.8.1",
+    "@docusaurus/module-type-aliases": "3.9.2",
+    "@docusaurus/tsconfig": "3.9.2",
+    "@docusaurus/types": "3.9.2",
     "copy-webpack-plugin": "^13.0.1",
     "cross-env": "^7.0.3",
     "typescript": "~5.9.3"
   },
   "browserslist": {
-    "production": [
-      ">0.5%",
-      "not dead",
-      "not op_mini all"
-    ],
+    "production": [">0.5%", "not dead", "not op_mini all"],
     "development": [
       "last 3 chrome version",
       "last 3 firefox version",
