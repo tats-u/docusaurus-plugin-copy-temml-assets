@@ -16,17 +16,17 @@
     "fix": "biome check --fix"
   },
   "dependencies": {
-    "@daiji256/rehype-mathml": "^1.2.1",
+    "@daiji256/rehype-mathml": "^1.2.2",
     "@docusaurus/core": "3.8.1",
     "@docusaurus/faster": "3.8.1",
     "@docusaurus/preset-classic": "3.8.1",
-    "@mdx-js/react": "^3.1.0",
+    "@mdx-js/react": "^3.1.1",
     "@tats-u/docusaurus-plugin-copy-temml-assets": "workspace:*",
     "clsx": "^2.1.1",
-    "katex": "^0.16.22",
+    "katex": "^0.16.27",
     "prism-react-renderer": "^2.4.1",
-    "react": "^19.1.1",
-    "react-dom": "^19.1.1",
+    "react": "^19.2.3",
+    "react-dom": "^19.2.3",
     "remark-math": "^6.0.0"
   },
   "devDependencies": {
@@ -34,12 +34,16 @@
     "@docusaurus/module-type-aliases": "3.8.1",
     "@docusaurus/tsconfig": "3.8.1",
     "@docusaurus/types": "3.8.1",
-    "copy-webpack-plugin": "^13.0.0",
+    "copy-webpack-plugin": "^13.0.1",
     "cross-env": "^7.0.3",
-    "typescript": "~5.8.3"
+    "typescript": "~5.9.3"
   },
   "browserslist": {
-    "production": [">0.5%", "not dead", "not op_mini all"],
+    "production": [
+      ">0.5%",
+      "not dead",
+      "not op_mini all"
+    ],
     "development": [
       "last 3 chrome version",
       "last 3 firefox version",
@@ -49,14 +53,5 @@
   "engines": {
     "node": ">=18.0"
   },
-  "packageManager": "pnpm@10.6.4",
-  "pnpm": {
-    "onlyBuiltDependencies": [
-      "@biomejs/biome",
-      "@swc/core",
-      "core-js",
-      "core-js-pure",
-      "esbuild"
-    ]
-  }
+  "packageManager": "pnpm@10.28.0"
 }
