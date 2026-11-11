@@ -26,7 +26,7 @@
   },
   "homepage": "https://github.com/tats-u/docusaurus-plugin-copy-temml-assets",
   "license": "MIT",
-  "packageManager": "pnpm@10.6.4",
+  "packageManager": "pnpm@12.18.0",
   "devDependencies": {
     "@docusaurus/faster": "3.9.2",
     "@docusaurus/types": "3.9.2",

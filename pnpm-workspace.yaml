@@ -4,13 +4,31 @@ packages:
   - "packages/@tats-u/docusaurus-plugin-copy-temml-assets"
 overrides:
   compression@1.8.0>on-headers: 1.1.0
+  # Tinypool 2 drops Node 18; the test site runs on Node 22+ in CI.
+  '@docusaurus/core@^3.9.2>tinypool@^1': ^2.2.0
+  # SockJS is unused by webpack-dev-server's default WebSocket transport.
+  webpack-dev-server@^5>sockjs: "-"
+  # Version 7 drops Node 18; this dependency is used only by the test site.
+  serialize-javascript@^6: ^7.1.4
+  # Keep remark-math's KaTeX dependency aligned with the test site.
+  katex@^0.16: ^0.18.2
+  serve-handler@6.1.6>minimatch: ^3.1.4
+  express@^4>qs: ^6.16.2
+  # First patched release; later 3.x patches introduce vulnerable Undici 5.
+  '@ai-sdk/provider-utils@3.0.20': 3.0.28
 minimumReleaseAge: 1440
 trustPolicy: no-downgrade
 trustPolicyIgnoreAfter: 43200
 blockExoticSubdeps: true
-onlyBuiltDependencies:
-  - "@biomejs/biome"
-  - "@swc/core"
-  - core-js
-  - core-js-pure
-  - esbuild
+allowBuilds:
+  '@biomejs/biome': true
+  '@swc/core': true
+  core-js: true
+  core-js-pure: true
+  esbuild: true
+audit:
+  # deepmerge false positive; CVE-2026-93753 was rejected.
+  # https://github.com/github/advisory-database/issues/10910
+  # https://github.com/TehShrike/deepmerge/issues/285
+  ignore:
+    - GHSA-gcqx-w48m-w2h4
