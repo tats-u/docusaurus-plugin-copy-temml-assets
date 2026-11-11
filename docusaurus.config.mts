@@ -4,6 +4,7 @@ import type { Config } from "@docusaurus/types";
 import {
   type CopyTemmlAssetsPluginOptions,
   copyTemmlAssetsPlugin,
+  getTemmlCssPath,
   getTemmlStyleSheet,
 } from "@tats-u/docusaurus-plugin-copy-temml-assets";
 import { themes as prismThemes } from "prism-react-renderer";
@@ -21,8 +22,9 @@ const baseUrl = "/docusaurus-plugin-copy-temml-assets/";
 
 const temmlPluginOptions = {
   baseUrl,
-  fontPath: require.resolve("./src/NotoSansMath-Regular.ttf"),
-  fontPreset: "NotoSans",
+  fontPath: require.resolve("./src/NotoSansMath-Regular.woff2"),
+  fontPreset: "Local",
+  nonStandardFontFileExtension: true,
 } satisfies CopyTemmlAssetsPluginOptions;
 
 const config: Config = {
@@ -77,6 +79,22 @@ const config: Config = {
     ],
   ],
   stylesheets: [getTemmlStyleSheet(temmlPluginOptions)],
+  // Temml's NotoSans preset references a TTF. Define the copied WOFF2 instead.
+  headTags: [
+    {
+      tagName: "style",
+      attributes: {},
+      innerHTML: `
+        @font-face {
+          font-family: "NotoSansMath-Regular";
+          src: url("${getTemmlCssPath(temmlPluginOptions).replace(/[^/]+$/, "NotoSansMath-Regular.woff2")}") format("woff2");
+          font-weight: normal;
+          font-style: normal;
+        }
+        html math { font-family: "NotoSansMath-Regular", math; }
+      `,
+    },
+  ],
 
   plugins: [[copyTemmlAssetsPlugin, temmlPluginOptions]],
 
