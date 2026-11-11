@@ -26,8 +26,9 @@ allowBuilds:
   core-js: true
   core-js-pure: true
   esbuild: true
-auditConfig:
+audit:
   # deepmerge false positive; CVE-2026-93753 was rejected.
   # https://github.com/github/advisory-database/issues/10910
-  ignoreGhsas:
+  # https://github.com/TehShrike/deepmerge/issues/285
+  ignore:
     - GHSA-gcqx-w48m-w2h4
